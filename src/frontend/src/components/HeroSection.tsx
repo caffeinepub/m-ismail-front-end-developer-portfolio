@@ -190,6 +190,7 @@ export function HeroSection() {
             <Button
               size="lg"
               onClick={() => scrollTo("projects")}
+              data-ocid="hero.primary_button"
               className="group bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 shadow-glow hover:shadow-glow-lg transition-all duration-300"
             >
               See My Work
@@ -199,6 +200,7 @@ export function HeroSection() {
               size="lg"
               variant="outline"
               onClick={() => scrollTo("contact")}
+              data-ocid="hero.secondary_button"
               className="border-primary/40 text-foreground hover:bg-primary/10 hover:border-primary/60 font-semibold px-8 transition-all duration-300"
             >
               Contact Me
@@ -230,13 +232,48 @@ export function HeroSection() {
             {/* Glow ring */}
             <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-primary/30 via-accent/20 to-primary/10 blur-xl animate-glow-pulse" />
             <div className="absolute -inset-2 rounded-full border border-primary/20" />
-            <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-2 border-primary/30 shadow-glow">
+
+            {/* Circle frame — no overflow-hidden so overlay text is not clipped */}
+            <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full border-2 border-primary/30 shadow-glow">
+              {/* Photo — clipped to circle independently */}
               <img
                 src="/assets/generated/profile-placeholder.dim_400x400.png"
-                alt="M. ISMAIL — Front-End Developer"
-                className="w-full h-full object-cover"
+                alt="M. ISMAIL"
+                className="absolute inset-0 w-full h-full object-cover rounded-full"
               />
+
+              {/* Dark gradient overlay — bottom-half fade for text legibility */}
+              <div
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.80) 100%)",
+                }}
+              />
+
+              {/* Name & title text — centered at bottom inside the circle */}
+              <div className="absolute inset-0 flex flex-col items-center justify-end pb-7 z-10 px-4">
+                <span
+                  className="block font-display font-extrabold text-sm sm:text-base tracking-widest leading-tight text-center"
+                  style={{
+                    color: "#ffffff",
+                    textShadow: "0 1px 6px rgba(0,0,0,0.8)",
+                  }}
+                >
+                  M. ISMAIL
+                </span>
+                <span
+                  className="block font-body text-xs sm:text-sm font-semibold tracking-wide mt-0.5 text-center"
+                  style={{
+                    color: "oklch(0.72 0.22 215)",
+                    textShadow: "0 1px 6px rgba(0,0,0,0.8)",
+                  }}
+                >
+                  Front-End Developer
+                </span>
+              </div>
             </div>
+
             {/* Floating badge */}
             <div className="absolute -bottom-3 -right-3 bg-card border border-primary/30 rounded-2xl px-3 py-2 shadow-card flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
@@ -252,6 +289,7 @@ export function HeroSection() {
       <button
         type="button"
         onClick={() => scrollTo("about")}
+        data-ocid="hero.button"
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground hover:text-primary transition-colors animate-bounce"
         aria-label="Scroll to About section"
       >
